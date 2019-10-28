@@ -1,5 +1,6 @@
 ﻿ using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -15,20 +16,31 @@ namespace CloudApp
         private string DBusername { get; set; }
         private string DBpassword { get; set; }
 
+        public SQLhandler()
+        {
+
+        }
+
+        public SQLhandler(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+        }
+
         public bool getCreditals()
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(@"Data Source=localhost;Initial Catalog=CloudUsers;Integrated Security=True"))
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["dbConn"].ConnectionString))
                 {
                     conn.Open();
-                    SqlCommand command = new SqlCommand("SELECT * FROM cloud WHERE ");
+                    SqlCommand command = new SqlCommand($"SELECT * FROM cloud WHERE username={this.username}", conn);
 
                     using (SqlDataReader dr = command.ExecuteReader())
                     {
                         while (dr.Read())
                         {
-
+                            MessageBox.Show($"{dr[0]} {dr[1]} {dr[2]} {dr[3]}", "Info", MessageBoxButton.OK);
                         }
                     }
                 }

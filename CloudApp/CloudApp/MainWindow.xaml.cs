@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,27 +35,28 @@ namespace CloudApp
             }
             else
             {
-                try
-                {
-                    using (SqlConnection conn = new SqlConnection(@"Data Source=localhost;Initial Catalog=CloudUsers;Integrated Security=True"))
-                    {
-                        conn.Open();
-                        SqlCommand command = new SqlCommand("SELECT * FROM cloud WHERE ");
-
-                        using (SqlDataReader dr = command.ExecuteReader())
-                        {
-                            while (dr.Read())
-                            {
-
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
-                }
+                SQLhandler handler = new SQLhandler(username.Text, password.Password);
             }
+        }
+
+        private void CreateAccount_click(object sender, RoutedEventArgs e)
+        {
+            Thread newThread = new Thread(new ThreadStart(OpenRegisterWindow));
+            newThread.SetApartmentState(ApartmentState.STA);
+            newThread.IsBackground = true;
+            newThread.Start();
+        }
+
+        private void OpenRegisterWindow()
+        {
+            register reg = new register();
+            reg.Show();
+            System.Windows.Threading.Dispatcher.Run();
+        }
+
+        private void Exit_click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

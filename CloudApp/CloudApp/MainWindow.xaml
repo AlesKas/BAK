@@ -6,11 +6,21 @@
         xmlns:local="clr-namespace:CloudApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="215" Width="300">
-    <Grid Margin="10,0,2,2">
+    <Grid Margin="0,0,2,2">
         <Label Content="Username" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,69,0,0"/>
         <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150" Margin="78,73,0,0" Name="username"/>
         <Label Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,97,0,0"/>
         <PasswordBox HorizontalAlignment="Left" Height="23" InputScope="Password" VerticalAlignment="Top" Width="150" Margin="78,101,0,0" Name="password"/>
         <Button Content="Log in" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="195,144,0,0" Name="loginButton" Click="LoginButton_Click"/>
+        <DockPanel HorizontalAlignment="Left" Height="20" LastChildFill="False" VerticalAlignment="Top" Width="280">
+            <Menu DockPanel.Dock="Top" Margin="0,0,-12,0">
+                <MenuItem Header="File">
+                    <MenuItem Header="Exit" Click="Exit_click"/>
+                </MenuItem>
+                <MenuItem Header="Tools">
+                    <MenuItem Header="Create account" Click="CreateAccount_click" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
     </Grid>
 </Window>
