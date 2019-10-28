@@ -1,0 +1,16 @@
+﻿<Window x:Class="CloudApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CloudApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="215" Width="300">
+    <Grid Margin="10,0,2,2">
+        <Label Content="Username" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,69,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150" Margin="78,73,0,0" Name="username"/>
+        <Label Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,97,0,0"/>
+        <PasswordBox HorizontalAlignment="Left" Height="23" InputScope="Password" VerticalAlignment="Top" Width="150" Margin="78,101,0,0" Name="password"/>
+        <Button Content="Log in" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="195,144,0,0" Name="loginButton" Click="LoginButton_Click"/>
+    </Grid>
+</Window>
