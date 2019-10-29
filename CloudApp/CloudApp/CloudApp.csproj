@@ -66,10 +66,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="handlers\RegexHandler.cs" />
+    <Compile Include="models\User.cs" />
     <Compile Include="register.xaml.cs">
       <DependentUpon>register.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SQLhandler.cs" />
+    <Compile Include="handlers\SQLhandler.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

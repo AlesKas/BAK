@@ -1,4 +1,5 @@
-﻿ using System;
+﻿using System;
+using CloudApp.models;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -27,22 +28,32 @@ namespace CloudApp.handlers
             this.password = password;
         }
 
+        private string getConnectionString()
+        {
+            return ConfigurationManager.ConnectionStrings["dbConn"].ConnectionString;
+        }
+
         public bool getCreditals()
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["dbConn"].ConnectionString))
+                string commandString = "SELECT * FROM cloud WHERE username=@username;";
+                using (SqlConnection conn = new SqlConnection(getConnectionString()))
                 {
                     conn.Open();
-                    SqlCommand command = new SqlCommand($"SELECT * FROM cloud WHERE username=@username", conn);
-                    command.Parameters.Add(new SqlParameter("@username", this.username));
-                    command.ExecuteNonQuery();
-
-                    using (SqlDataReader dr = command.ExecuteReader())
+                    using (SqlCommand command = new SqlCommand())
                     {
-                        while (dr.Read())
+                        command.Connection = conn;
+                        command.CommandText = commandString;
+                        command.Parameters.AddWithValue("@username", this.username);
+                        command.ExecuteNonQuery();
+
+                        using (SqlDataReader dr = command.ExecuteReader())
                         {
-                            MessageBox.Show($"{dr[0]} {dr[1]} {dr[2]} {dr[3]}", "Info", MessageBoxButton.OK);
+                            while (dr.Read())
+                            {
+                                MessageBox.Show($"{dr[0]} {dr[1]} {dr[2]} {dr[3]}", "Info", MessageBoxButton.OK);
+                            }
                         }
                     }
                 }
@@ -55,31 +66,60 @@ namespace CloudApp.handlers
             return true;
         }
 
-        public bool isUsernameUsed(string usernameToValidate)
+        public bool isUsernameAvailable(string usernameToValidate)
+        {
+            string commandString = $"SELECT COUNT(*) FROM cloudUsers WHERE username={usernameToValidate};";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(getConnectionString()))
+                {
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = conn;
+                        command.CommandText = commandString;
+                        conn.Open();
+                        
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        if (count > 0)
+                            return false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool createUser(User newUser)
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["dbConn"].ConnectionString))
+                string commandString = "INSERT INTO cloudUsers (username, password, admin, firstName, lastName, email) VALUES(@username, @password, @admin, @firstName, @lastname, @email);";
+                using (SqlConnection conn = new SqlConnection(getConnectionString()))
                 {
-                    conn.Open();
-                    SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM cloud WHERE username=@username", conn);
-                    command.Parameters.Add(new SqlParameter("@username", usernameToValidate));
-                    int count = (int)command.ExecuteScalar();
-                    if (count > 1)
+                    using(SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = conn;
+                        command.CommandText = commandString;
+                        command.Parameters.AddWithValue("@username", newUser.username);
+                        command.Parameters.AddWithValue("@password", newUser.password);
+                        command.Parameters.AddWithValue("@admin", newUser.admin);
+                        command.Parameters.AddWithValue("@firstName", newUser.firstName);
+                        command.Parameters.AddWithValue("@lastname", newUser.lastName);
+                        command.Parameters.AddWithValue("@email", newUser.email);
+                        conn.Open();
+                        command.ExecuteNonQuery();
                         return true;
-                    return false;
+                    }
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButton.OK);
-                return true;
             }
-        }
-
-        public bool createUser()
-        {
-
+            return false;
         }
     }
 }

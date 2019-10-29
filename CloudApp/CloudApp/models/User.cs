@@ -9,11 +9,11 @@ namespace CloudApp.models
     class User
     {
         private int Id { get; }
-        private string username { get; set; }
-        private string password { get; set; }
-        private bool admin { get; set; }
-        private string firstName { get; set; }
-        private string lastName { get; set; }
-        private string email { get; set; }
+        public string username { get; internal set; }
+        public string password { get; internal set; }
+        public bool admin { get; internal set; }
+        public string firstName { get; internal set; }
+        public string lastName { get; internal set; }
+        public string email { get; internal set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,15 +41,7 @@ namespace CloudApp
 
         private bool isValidEmail(string emailAddress)
         {
-            try
-            {
-                MailAddress m = new MailAddress(emailAddress);
-                return true;
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
+            return RegexHandler.IsValidEmail(emailAddress);
         }
 
         private void Submit_Click(object sender, RoutedEventArgs e)
@@ -62,7 +55,7 @@ namespace CloudApp
             {
                 MessageBox.Show("Please enter your username.", "Error", MessageBoxButton.OK);
             }
-            else if (isValidEmail(textBoxEmail.Text))
+            else if (!isValidEmail(textBoxEmail.Text))
             {
                 MessageBox.Show("Please enter valid email address.", "Error", MessageBoxButton.OK);
             }
@@ -73,13 +66,13 @@ namespace CloudApp
             else
             {
                 SQLhandler sql = new SQLhandler();
-                if (sql.isUsernameUsed(textBoxUsername.Text))
+                if (sql.isUsernameAvailable(textBoxUsername.Text))
                 {
-                    MessageBox.Show("Username is already used.", "Error", MessageBoxButton.OK);
+                    createUser();
                 }
                 else
                 {
-                    createUser();
+                    MessageBox.Show("Username is already used.", "Error", MessageBoxButton.OK);
                 }
             }
             
@@ -88,6 +81,13 @@ namespace CloudApp
         private bool createUser()
         {
             User user = new User();
+            user.firstName = textBoxFirstName.Text;
+            user.lastName = textBoxLastName.Text;
+            user.username = textBoxUsername.Text;
+            user.admin = false;
+            user.email = textBoxEmail.Text;
+            user.password = passwordBox1.Password;
+            return new SQLhandler().createUser(user);
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
