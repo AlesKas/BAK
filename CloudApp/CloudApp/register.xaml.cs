@@ -1,6 +1,9 @@
-﻿using System;
+﻿using CloudApp.handlers;
+using CloudApp.models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +25,79 @@ namespace CloudApp
         public register()
         {
             InitializeComponent();
+            initTextBoxes();
+        }
+
+        private void initTextBoxes()
+        {
+            textBoxFirstName.Text = String.Empty;
+            textBoxLastName.Text = String.Empty;
+            textBoxUsername.Text = String.Empty;
+            textBoxEmail.Text = String.Empty;
+            passwordBox1.Password = String.Empty;
+            passwordBoxConfirm.Password = String.Empty;
+        }
+
+        private bool isValidEmail(string emailAddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailAddress);
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
+
+        private void Submit_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (String.IsNullOrEmpty(textBoxFirstName.Text) || String.IsNullOrEmpty(textBoxLastName.Text))
+            {
+                MessageBox.Show("Please enter your name and surname.", "Error", MessageBoxButton.OK);
+            }
+            if (String.IsNullOrEmpty(textBoxUsername.Text))
+            {
+                MessageBox.Show("Please enter your username.", "Error", MessageBoxButton.OK);
+            }
+            else if (isValidEmail(textBoxEmail.Text))
+            {
+                MessageBox.Show("Please enter valid email address.", "Error", MessageBoxButton.OK);
+            }
+            else if (passwordBox1.Password != passwordBoxConfirm.Password)
+            {
+                MessageBox.Show("Password does not match.", "Error", MessageBoxButton.OK);
+            }
+            else
+            {
+                SQLhandler sql = new SQLhandler();
+                if (sql.isUsernameUsed(textBoxUsername.Text))
+                {
+                    MessageBox.Show("Username is already used.", "Error", MessageBoxButton.OK);
+                }
+                else
+                {
+                    createUser();
+                }
+            }
+            
+        }
+
+        private bool createUser()
+        {
+            User user = new User();
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            initTextBoxes();
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

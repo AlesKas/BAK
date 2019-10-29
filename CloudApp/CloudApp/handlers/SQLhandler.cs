@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace CloudApp
+namespace CloudApp.handlers
 {
     class SQLhandler
     {
@@ -34,7 +34,9 @@ namespace CloudApp
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["dbConn"].ConnectionString))
                 {
                     conn.Open();
-                    SqlCommand command = new SqlCommand($"SELECT * FROM cloud WHERE username={this.username}", conn);
+                    SqlCommand command = new SqlCommand($"SELECT * FROM cloud WHERE username=@username", conn);
+                    command.Parameters.Add(new SqlParameter("@username", this.username));
+                    command.ExecuteNonQuery();
 
                     using (SqlDataReader dr = command.ExecuteReader())
                     {
@@ -51,6 +53,33 @@ namespace CloudApp
                 return false;
             }
             return true;
+        }
+
+        public bool isUsernameUsed(string usernameToValidate)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["dbConn"].ConnectionString))
+                {
+                    conn.Open();
+                    SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM cloud WHERE username=@username", conn);
+                    command.Parameters.Add(new SqlParameter("@username", usernameToValidate));
+                    int count = (int)command.ExecuteScalar();
+                    if (count > 1)
+                        return true;
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK);
+                return true;
+            }
+        }
+
+        public bool createUser()
+        {
+
         }
     }
 }
