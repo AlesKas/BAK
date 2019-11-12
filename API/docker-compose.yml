@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  device-registry:
+    build: .
+    volumes: 
+      - .:/home/pi/Desktop/GIT/BAK/API
+    ports:
+      - 5000:80
