@@ -1,5 +1,0 @@
-C:\Users\alesk\OneDrive\Dokumenty\GitHub\BAK\CloudApp\CloudApp\obj\Debug\CloudApp.csprojAssemblyReference.cache
-C:\Users\alesk\OneDrive\Dokumenty\GitHub\BAK\CloudApp\CloudApp\obj\Debug\register.g.cs
-C:\Users\alesk\OneDrive\Dokumenty\GitHub\BAK\CloudApp\CloudApp\obj\Debug\App.g.cs
-C:\Users\alesk\OneDrive\Dokumenty\GitHub\BAK\CloudApp\CloudApp\obj\Debug\CloudApp_MarkupCompile.cache
-C:\Users\alesk\OneDrive\Dokumenty\GitHub\BAK\CloudApp\CloudApp\obj\Debug\CloudApp_MarkupCompile.lref
