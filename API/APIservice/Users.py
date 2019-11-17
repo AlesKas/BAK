@@ -1,6 +1,9 @@
 import shelve
 import DBcontext
+import userData
+import json
 
+from dataclasses import dataclass
 from flask_restplus import Resource
 
 class UsersList(Resource):
@@ -15,5 +18,7 @@ class UsersList(Resource):
 
         return {'message': 'Success', 'data': users}
 
-    def post(self):
+    def post(self, data):
         shelf = DBcontext.get_db()
+        with open(data, 'r') as jsonFile:
+            jsonData
