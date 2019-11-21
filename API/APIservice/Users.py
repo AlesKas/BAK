@@ -1,6 +1,8 @@
 import shelve
 import DBcontext
+import json
 
+from flask import request
 from flask_restplus import Resource
 
 class UsersList(Resource):
@@ -17,3 +19,4 @@ class UsersList(Resource):
 
     def post(self):
         shelf = DBcontext.get_db()
+        json_data = request.get_json(force=True)
