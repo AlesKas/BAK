@@ -7,4 +7,4 @@ class user():
     lastName: str
     userName: str
     email: str
-    admin: bool = field(default=False)
+    admin: bool = False

@@ -1,0 +1,32 @@
+version: '3.4'
+
+volumes:
+  postgres_data:
+      driver: local
+
+services:
+  postgres:
+      image: postgres
+      volumes:
+        - ./postgres_data:/var/lib/postgresql:rw
+        - ./deployments:/opt/jboss/wildfly/standalone/deployments:rw
+      environment:
+        POSTGRES_DB: keycloak
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: password
+      ports:
+        - 5432:5432
+   keycloak:
+      image: jboss/keycloak
+      environment:
+        POSTGRES_ADDR: postgres
+        POSTGRES_DATABASE: keycloak
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: password
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: Pa55w0rd
+      ports:
+        - 8080:8080
+        - 9990:9990
+      depends_on:
+        - postgres
