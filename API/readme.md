@@ -6,28 +6,32 @@ json
 }
 
 User endpoint
-    GET /user/{id}
+    GET /users
+    - 200 OK
+        - returns json dict of all users
+
+    GET /users/{id}
     responce:
     - 200 OK
         -user exists
     - 400 Error 
         -user does not exist
 
-    POST /user/{id}
+    POST /users/{id}
     responce:
     - 200 OK
         -user created
     - 400 Error
         -user was not created or already exists
 
-    PUT /user/{id}
+    PUT /users/{id}
     responce:
     - 200 OK
         -user creditals updated
     - 400 Error
         -user was not found
 
-    DELETE /user/{id}
+    DELETE /users/{id}
     responce:
     - 200 OK
         -user deleted
