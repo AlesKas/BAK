@@ -13,6 +13,6 @@ services:
         ports:
             - 15432:5432
         volumes:
-            - ./ntw_storage-data:/var/lib/bak/pgsql/data
+            - /var/lib/bak/postgres/data
             
             
