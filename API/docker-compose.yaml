@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+    ntw_database:
+        container_name: storage_database
+        build: 
+            context: ./
+            dockerfile: ./database/Dockerfile
+        image: "ntw_storage/postgres:latest"
+        env_file:   
+            - ./conf/common.env
+            - ./conf/database.env
+        ports:
+            - 15432:5432
+        volumes:
+            - ./ntw_storage-data:/var/lib/bak/pgsql/data
+            
+            
