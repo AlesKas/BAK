@@ -6,18 +6,31 @@ services:
         build: 
             context: ./
             dockerfile: ./database/Dockerfile
-        image: "ntw_storage/postgres:latest"
+        image: "ntw_storage:latest"
         env_file:   
             - ./conf/common.env
             - ./conf/database.env
         ports:
-            - 15432:5432
+            - 5432:5432
         volumes:
             - /var/lib/bak/postgres/data
-            
-    listener:
-        container_name: storage_listener
+
+    ntw_manager:
+        container_name: storage_manager
         build: 
             context: ./
-            dockerfile: ./listener/Dockerfile
-        image: "ntw_listener/postgres:latest"
+            dockerfile: ./Dockerfile
+        image: "ntw_storage:latest"
+        env_file:
+            - ./conf/common.env
+            - ./conf/manager.env
+        depends_on: 
+            - ntw_database
+        command: sh /storage/entrypoint.sh
+
+    # listener:
+    #     container_name: storage_listener
+    #     build: 
+    #         context: ./
+    #         dockerfile: ./listener/Dockerfile
+    #     image: "ntw_listener/postgres:latest"
