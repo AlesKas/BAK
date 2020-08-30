@@ -1,12 +1,15 @@
-openapi: "3.0.0"
+openapi: "3.0.3"
+
+info:
+  title: Cloud storage app
+  version: "0.1"
 
 paths:
   /apistatus:
     get:
       summary: Health status of application
       description: Checks database availability and API response threshold time.
-      operationId: manager.api_status_handler.GetApiStatus.get
-      x-methodName: getApiStatus
+      operationId: manager.api_status.get
       responses:
         200:
           description: API is healthy

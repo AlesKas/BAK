@@ -1,3 +1,5 @@
 pyyaml
 cryptography
+flask
 connexion
+connexion[swagger-ui]

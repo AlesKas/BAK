@@ -1,3 +1,2 @@
 #!/usr/bin/sh
-echo "HELLO"
-python manager/main.py
+python3 manager/main.py
