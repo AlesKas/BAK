@@ -2,12 +2,15 @@ import os
 import connexion
 
 from flask import Flask
-from utils.logging import LOGGER
+from utils.logger import initLogging 
 #from utils.db import db_util
 from connexion.resolver import RestyResolver
 from swagger_ui_bundle import swagger_ui_3_path
 
+LOGGER = initLogging()
+
 def create_app():
+    LOGGER.info("creating manager API")
     app = connexion.App("Network attached storage", options={'swagger_ui': True, 'swagger_path': swagger_ui_3_path}, specification_dir='')
     app.app.url_map.strict_slashes = False
     app.add_api('manager.specs.yaml',
@@ -26,9 +29,9 @@ def create_app():
             pass
         except:
             pass
-        print("ERRRR")
-        LOGGER.info("Setting un db")
+        LOGGER.info("Setting up db")
 
+    LOGGER.info("created manager API")
     return app
 
 app = create_app()

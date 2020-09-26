@@ -25,7 +25,6 @@ RUN pip3 freeze
 
 EXPOSE 8000
 
-ADD __init__.py                 /storage/
 ADD entrypoint.sh               /storage/
 ADD manager.specs.yaml          /storage/
 ADD manager/*.py                /storage/manager/
