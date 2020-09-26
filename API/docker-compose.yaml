@@ -30,4 +30,4 @@ services:
             - 8000:8000
         depends_on: 
             - ntw_database
-        command: sh /storage/entrypoint.sh
+        command: sh /storage/entrypoint.sh manager

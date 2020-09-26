@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+connexion = {extras = ["swagger-ui"],version = "==2.6.0"}
+lockfile = "==0.12.2"
+peewee = "==3.10.0"
+redis = "==3.3.6"
+cryptography = "==3.1.1"
+requests = "==2.22.0"
+swagger_ui_bundle = "==0.0.5"
+tornado = "==6.0.3"
+urllib3 = "==1.25.8"
+PyYAML = "==5.3.1"
+
+[requires]
+python_version = "3.8"
