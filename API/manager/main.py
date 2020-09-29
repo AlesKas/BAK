@@ -3,7 +3,7 @@ import connexion
 
 from flask import Flask
 from utils.logger import initLogging 
-#from utils.db import db_util
+from utils.db import db_util
 from connexion.resolver import RestyResolver
 from swagger_ui_bundle import swagger_ui_3_path
 
