@@ -14,7 +14,6 @@ services:
             - ./conf/database.env
         ports:
             - 5432:5432
-            - 5678:5678
         volumes:
             - /var/lib/bak/postgres/data
 
@@ -27,8 +26,12 @@ services:
         env_file:
             - ./conf/common.env
             - ./conf/manager.env
+        environment: 
+            #DEBUG: 'false'
+            DEBUG: 'true'
         ports: 
             - 8000:8000
+            - 5678:5678
         depends_on: 
             - ntw_database
-        command: sh /storage/entrypoint.sh manager-debug
+        command: sh /storage/entrypoint.sh manager
