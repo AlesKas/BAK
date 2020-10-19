@@ -20,7 +20,6 @@ def create_app():
 
     @app.app.after_request
     def _set_headers(response):
-        LOGGER.info("MSG")
         return response
 
     @app.app.before_request
@@ -29,7 +28,6 @@ def create_app():
             pass
         except:
             pass
-        LOGGER.info("Setting up db")
 
     LOGGER.info("created manager API")
     return app

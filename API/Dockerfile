@@ -21,8 +21,6 @@ RUN export PIPENV_USE_SYSTEM=1
 RUN pip3 install --upgrade pipenv && \
     pipenv install --ignore-pipfile --deploy --system && ln -s /usr/bin/python3 /usr/bin/python
 
-RUN pip3 freeze
-
 EXPOSE 8000
 
 ADD entrypoint.sh               /storage/

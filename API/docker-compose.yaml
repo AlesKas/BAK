@@ -13,7 +13,7 @@ services:
             - ./conf/common.env
             - ./conf/database.env
         ports:
-            - 15432:5432
+            - 5432:5432
         volumes:
             - /var/lib/bak/postgres/data
 
