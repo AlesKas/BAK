@@ -12,6 +12,7 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONFAULTHANDLER 1
+ENV FLASK_APP main.py
 
 WORKDIR /storage
 
@@ -22,6 +23,7 @@ RUN pip3 install --upgrade pipenv && \
     pipenv install --ignore-pipfile --deploy --system && ln -s /usr/bin/python3 /usr/bin/python
 
 EXPOSE 8000
+EXPOSE 5678
 
 ADD entrypoint.sh               /storage/
 ADD manager.specs.yaml          /storage/

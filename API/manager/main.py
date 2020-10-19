@@ -9,6 +9,11 @@ from swagger_ui_bundle import swagger_ui_3_path
 
 LOGGER = initLogging()
 
+import ptvsd
+LOGGER.info("WAITING FOR DEBBUGER")
+ptvsd.enable_attach(address = ('0.0.0.0', 5678), redirect_output=True)
+ptvsd.wait_for_attach()
+
 def create_app():
     LOGGER.info("creating manager API")
     app = connexion.App("Network attached storage", options={'swagger_ui': True, 'swagger_path': swagger_ui_3_path}, specification_dir='')

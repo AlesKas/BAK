@@ -14,13 +14,14 @@ class Users(GetRequest):
     @classmethod
     def handle_get(cls):
         try:
-            data = NtwUsers.select("*")
+            data = NtwUsers.select(NtwUsers.userName)
             LOGGER.info(data)
         except DoesNotExist:
             return 404
         response = {}
         for user in data:
-            LOGGER.info(user.id)
+            LOGGER.info(user)
+            LOGGER.info(user)
             response[user.id] = {}
             for key, val in user:
                 response[user.id][key] = val

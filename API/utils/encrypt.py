@@ -4,6 +4,7 @@ from cryptography.fernet import Fernet
 LOGGER = initLogging()
 
 def encrypt_password(passwd: str) -> bytes:
+    LOGGER.debug("Encrypting password")
     key = Fernet.generate_key()
     encryption_type = Fernet(key)
     encrypted_passwd = encryption_type.encrypt(passwd)

@@ -28,6 +28,10 @@ paths:
       responses:
         200:
           description: API is healthy
+          # content: 
+          #   application/json:
+          #     schema:
+          #       $ref: "#/components/schemas/UsersResponse"
         400:
           description: API is down
     
@@ -84,3 +88,8 @@ components:
       required: 
         - error
               
+
+    # UsersResponse:
+    #   type: object
+    #   properties:
+        
