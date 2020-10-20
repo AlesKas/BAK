@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-    ntw_database:
+    storage_database:
         container_name: storage_database
         build: 
             context: ./
@@ -17,7 +17,7 @@ services:
         volumes:
             - /var/lib/bak/postgres/data
 
-    ntw_manager:
+    storage_manager:
         container_name: storage_manager
         build: 
             context: ./
@@ -27,11 +27,11 @@ services:
             - ./conf/common.env
             - ./conf/manager.env
         environment: 
-            #DEBUG: 'false'
-            DEBUG: 'true'
+            DEBUG: 'false'
+            #DEBUG: 'true'
         ports: 
             - 8000:8000
             - 5678:5678
         depends_on: 
-            - ntw_database
+            - storage_database
         command: sh /storage/entrypoint.sh manager
