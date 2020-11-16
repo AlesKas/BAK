@@ -1,11 +1,16 @@
 #!/usr/bin/sh
 
 set -e
-  
-until python3 -c "import psycopg2;c=psycopg2.connect(host=\"$POSTGRES_HOST\",database=\"$POSTGRES_DB\",user=\"$DB_USER\",port=\"$POSTGRES_PORT\",password=\"$DB_PASSWD\");c.close()" &> /dev/null; do
+
+until python3 utils/wait_for_db.py -eq 0 ; do
     echo "Waiting for database to initialize"
     sleep 2;
 done
+
+# until psql -h "localhost:5432" -U "postgres" -d ${POSTGRES_DB} -c "select 1" > /dev/null 2>&1 ; do
+#     echo "Waiting for database to initialize"
+#     sleep 2;
+# done
 
 echo "Database intialized, running $1"
 
