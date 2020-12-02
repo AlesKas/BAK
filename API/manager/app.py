@@ -30,6 +30,10 @@ def create_app():
             LOGGER.error("Could not connect to database.")
             abort(503, "DB is not running.")
             
+    @app.app.teardown_request
+    def _close_db(exc):
+        if not db_util.DB.is_closed():
+            db_util.DB.close()
 
     LOGGER.info("created manager API")
     return app
