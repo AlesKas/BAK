@@ -7,9 +7,12 @@ class BaseModel(Model):
         database = DB
 
 class NtwUsers(BaseModel):
-    id = IntegerField()
-    userName = TextField(null=False, unique=True)
+    id = AutoField()
+    user_name = TextField(null=False, unique=True)
     passw = TextField(null=False, unique=True)
 
     class Meta:
         table_name = "ntw_users"
+        database = DB
+
+DB.create_tables([NtwUsers])

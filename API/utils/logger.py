@@ -3,7 +3,7 @@ import logging
 def initLogging():
     log = logging.getLogger(__name__)
     log.setLevel(logging.DEBUG)
-    log_fmt = "%(asctime)s:%(levelname)s:%(name)s:%(message)s"
+    log_fmt = "%(asctime)s:%(levelname)s: %(message)s"
 
     if not log.handlers:
         handler = logging.StreamHandler()
