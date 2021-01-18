@@ -7,11 +7,6 @@ until python3 utils/wait_for_db.py -eq 0 ; do
     sleep 2;
 done
 
-# until psql -h "localhost:5432" -U "postgres" -d ${POSTGRES_DB} -c "select 1" > /dev/null 2>&1 ; do
-#     echo "Waiting for database to initialize"
-#     sleep 2;
-# done
-
 echo "Database intialized, running $1"
 
 if [[ ! -z "$1" ]]; then

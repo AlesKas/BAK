@@ -63,27 +63,35 @@ paths:
             type: string
           example: blah
 
-  /users/{user_id}:
+  /users/auth/{user_name}/{user_passwd}:
     get:
       summary: Get user based on their id
       description: Get user based on their id
-      operationId: manager.users.UserDetail.get
+      operationId: manager.users.UserAuthentication.get
       responses:
         200:
-          description: user detail
+          description: User authentication successful
         400:
-          description: Operation failed
+          description: User authentication failed
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/InternalError"
       parameters:
         - in: path
-          name: user_id
-          description: Get user datails based on ther id
+          name: user_name
+          description: Username
+          required: true
           schema:
-            type: integer
-            example: 1
+            type: string
+            example: blahs
+        - in: path
+          name: user_passwd
+          description: Users password
+          required: true
+          schema:
+            type: string
+            example: blah
 
 
 components:

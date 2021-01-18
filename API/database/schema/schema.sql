@@ -1,3 +1,7 @@
+CREATE TABLE IF NOT EXISTS salt (
+    salt TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS ntw_users (
     id          SERIAL,
     user_name    TEXT UNIQUE NOT NULL,
