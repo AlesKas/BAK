@@ -1,6 +1,8 @@
-INSERT INTO ntw_salt (salt) VALUES ('3fjXRCbrDD');
+INSERT INTO ntw_salt (salt) VALUES ('N3NosfLjZ8hPTIC3');
 
-INSERT INTO ntw_users (id, user_name, passw, salt_id) VALUES 
-    (1, 'blah', '249b7642b18014503e958f678ecf74911e48bb7c2b52063b0c313194d4f25140', 1), 
-    (2, 'blah2', 'ce756057f4fd91d9507bff3a873ebe8ba89e56bd4194af08bbb2ae0ea22edc66', 1),
-    (3, 'blah3', '53d4b0ba91568fb33eee78c48fe4f591574e5650e63414c68e8e53557a260693', 1);
+INSERT INTO ntw_hash_keys (hash_text) VALUES ('U1FeX_omJWnVDFkTM9N6SLew0BqWp-xJgUTlMnzxxtQ=');
+
+INSERT INTO ntw_users (id, user_name, passw, salt_id, hash_id) VALUES 
+    (1, 'blah', 'dc2b19084ab3434eb401b72e2e80d1f7ac270827d9c9a574fecd4694d9021110', 1, 1), 
+    (2, 'blah2', '9cff03313fe3c05ec8d3f3750d7d3697379f9e1f5111b721605e0de5c6c15661', 1, 1),
+    (3, 'blah3', 'f684414d502672594545750db0bbe390bfd721ecadcc6ba39012f8f1f69bf8df', 1, 1);
