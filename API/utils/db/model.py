@@ -15,11 +15,11 @@ class NtwUsers(BaseModel):
         table_name = "ntw_users"
         database = DB
 
-class Salt(BaseModel):
+class NtwSalt(BaseModel):
     salt = TextField(null=False)
 
     class Meta:
-        table_name = "salt"
+        table_name = "ntw_salt"
         database = DB
 
 DB.create_tables([NtwUsers])
