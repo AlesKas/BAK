@@ -1,1 +1,3 @@
-This is my bachelors thesis repo.
+# Bachelor's thesis
+
+This is my private repository containing my bachelor's thesis. 
