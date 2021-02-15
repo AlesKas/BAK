@@ -21,6 +21,15 @@ class GetRequest(Request):
     def handle_get(cls, **kwargs):
         raise NotImplementedError
 
+class PutRequest(Request):
+    @classmethod
+    def put(cls, **kwargs):
+        return cls.handle_errors(cls.handle_put, **kwargs)
+
+    @classmethod
+    def handle_put(cls, **kwargs):
+        raise NotADirectoryError
+
 class BaseException(Exception):
     def __init__(self, message, status_code):
         self.message = message

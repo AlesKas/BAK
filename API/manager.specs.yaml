@@ -35,6 +35,34 @@ paths:
         400:
           description: API is down
 
+  /users/create:
+    put:
+      summary: Get user based on their id
+      description: Get user based on their id
+      operationId: manager.users.CreateUser.put
+      requestBody:
+        description: Post data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                  example: Karel123
+                password:
+                  type: string
+                  example: nosorozci123
+              required:
+                - userName
+                - password
+      responses:
+        200: 
+          description: User created successfully
+        400:
+          description: User creation failed
+
   /users/auth/{user_name}/{user_passwd}:
     get:
       summary: Get user based on their id
