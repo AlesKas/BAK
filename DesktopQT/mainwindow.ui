@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>371</width>
+    <width>314</width>
     <height>155</height>
    </rect>
   </property>
@@ -63,16 +63,16 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_login">
+       <widget class="QPushButton" name="btn_cancel">
         <property name="text">
-         <string>Log In</string>
+         <string>Cancel</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_cancel">
+       <widget class="QPushButton" name="btn_login">
         <property name="text">
-         <string>Cancel</string>
+         <string>Log In</string>
         </property>
        </widget>
       </item>
@@ -85,7 +85,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>371</width>
+     <width>314</width>
      <height>22</height>
     </rect>
    </property>
@@ -104,6 +104,11 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>btn_login</tabstop>
+  <tabstop>input_username</tabstop>
+  <tabstop>input_password</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
