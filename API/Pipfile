@@ -9,7 +9,6 @@ verify_ssl = true
 connexion = {extras = ["swagger-ui"],version = "==2.6.0"}
 lockfile = "==0.12.2"
 peewee = "==3.10.0"
-psycopg2-binary = "*"
 redis = "==3.3.6"
 requests = "==2.22.0"
 swagger_ui_bundle = "==0.0.5"
