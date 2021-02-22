@@ -1,4 +1,4 @@
-FROM amd64/centos:latest as base
+FROM centos:latest as base
 
 RUN yum update -y && \
     yum install -y python3.8 \
