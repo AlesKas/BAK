@@ -1,9 +1,6 @@
 FROM amd64/centos:latest as base
 
 RUN yum update -y && \
-    yum install -y which && \
-    yum install -y postgresql && \
-    yum install -y nc && \
     yum install -y python3.8 \
     python3-pip \
     && \
