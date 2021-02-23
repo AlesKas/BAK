@@ -17,11 +17,10 @@ ENV FLASK_APP manager.main
 
 WORKDIR /storage
 
-ADD Pipfile  /storage/
+ADD Pipfile*  /storage/
 
 RUN export PIPENV_USE_SYSTEM=1
 RUN pip3 install --upgrade pipenv
-RUN pipenv lock
 RUN pipenv install --ignore-pipfile --deploy --system
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
