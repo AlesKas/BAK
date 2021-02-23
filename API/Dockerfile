@@ -1,25 +1,29 @@
-FROM arm64v8/centos:latest as base
+FROM ubuntu:18.04 as base
 
-RUN yum update -y && \
-    yum install -y python3.8 \
-    python3-pip \
-    && \
-    rm -rf /var/lib/apt/lists/*
-RUN yum remove -y python3
+RUN apt-get update -y 
+RUN apt-get install -y python3.8
+RUN python3.8 --version
+RUN apt-get install -y python3-pip
+RUN rm -rf /var/lib/apt/lists/
 
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
+#ENV LANG en_US.UTF-8
+#ENV LC_ALL en_US.UTF-8
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+#RUN dpkg-reconfigure locales
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONFAULTHANDLER 1
 ENV FLASK_APP manager.main
 
 WORKDIR /storage
 
-ADD Pipfile*  /storage/
+ADD Pipfile  /storage/
 
 RUN export PIPENV_USE_SYSTEM=1
-RUN pip3 install --upgrade pipenv && \
-    pipenv install --ignore-pipfile --deploy --system && ln -s /usr/bin/python3 /usr/bin/python
+RUN pip3 install --upgrade pipenv
+RUN pipenv lock
+RUN pipenv install --ignore-pipfile --deploy --system
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 EXPOSE 8000
 EXPOSE 5678
