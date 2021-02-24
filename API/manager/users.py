@@ -3,7 +3,7 @@ import json
 from utils.logger import initLogging
 from .base import GetRequest, PutRequest, BaseException
 from utils.db.model import NtwUsers
-from peewee import DoesNotExist
+from peewee import DoesNotExist, IntegrityError
 
 LOGGER = initLogging()
 
@@ -46,8 +46,10 @@ class CreateUser(PutRequest):
         try:
             NtwUsers.create(id= user_id+1,user_name=user_name, passw=password)
             return 200
-        except Exception as exc:
-            return 500, exc
+        except IntegrityError:
+            return 409, "Username taken"
+        except Exception:
+            return 500, "Database error"
         LOGGER.info(password)
         LOGGER.info(user_name)
-        return 200
+        return 201
