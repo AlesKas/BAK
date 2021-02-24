@@ -27,13 +27,18 @@ paths:
       operationId: manager.users.Users.get
       responses:
         200:
-          description: API is healthy
-          # content: 
-          #   application/json:
-          #     schema:
-          #       $ref: "#/components/schemas/UsersResponse"
+          description: Users fetched successfully
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsersResponse"
         400:
-          description: API is down
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
+
 
   /users/create:
     put:
@@ -62,6 +67,16 @@ paths:
           description: User created successfully
         400:
           description: User creation failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
+        409:
+          description: Username already taken.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
 
   /users/auth/{user_name}/{user_passwd}:
     get:
@@ -76,7 +91,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/InternalError"
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user_name
@@ -115,35 +130,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/InternalError"
+                $ref: "#/components/schemas/ErrorMsg"
 
 components:
   schemas:
-    InternalError:
+    ErrorMsg:
       type: object
       properties:
         error:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error msg
-                example: Internal server error
-              status:
-                type: string
-                description: Error code
-                example: 404
-            required:
-              - message
-              - status
-            minItems: 1
-      required: 
-        - error
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error msg
+              example: Internal server error
+            status:
+              type: string
+              description: Error code
+              example: 404
+          required:
+            - message
+            - status
               
 
-    # UsersResponse:
-    #   type: object
-    #   properties:
-        
+    UsersResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: string
+            

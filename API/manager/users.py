@@ -1,4 +1,5 @@
 import json
+import peewee
 
 from utils.logger import initLogging
 from .base import GetRequest, PutRequest, BaseException
@@ -14,10 +15,11 @@ class Users(GetRequest):
         try:
             data = (NtwUsers.select())
         except ValueError:
-            return 500
+            raise Exception
         response = {}
+        response["data"] = []
         for user in data:
-            response[user.id] = user.user_name
+            response["data"].append(user.user_name)
         return response
 
 class UserAuthentication(GetRequest):
@@ -29,7 +31,7 @@ class UserAuthentication(GetRequest):
         try:
             NtwUsers.select().where((NtwUsers.user_name == userName) & (NtwUsers.passw == passwd)).get()
         except DoesNotExist:
-            raise BaseException(f"Username or password incorrect", 404)
+            return cls.format_exc("Username or password incorrect", 404)
         return 200
 
 class CreateUser(PutRequest):
@@ -45,11 +47,11 @@ class CreateUser(PutRequest):
         user_id = user_id.count()
         try:
             NtwUsers.create(id= user_id+1,user_name=user_name, passw=password)
-            return 200
-        except IntegrityError:
-            return 409, "Username taken"
-        except Exception:
-            return 500, "Database error"
+            return
+        except peewee.IntegrityError:
+            return cls.format_exc(f"Username is already taken", 409)
+        except Exception as exc:
+            return cls.format_exc(f"Unhandeled error: {exc}", 500)
         LOGGER.info(password)
         LOGGER.info(user_name)
-        return 201
+        return

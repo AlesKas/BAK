@@ -10,7 +10,7 @@ class Request:
 
     @staticmethod
     def format_exc(msg: str, status_code: int) -> object:
-        return {"error": [{"status": str(status_code), "message": msg}]}, status_code
+        return {"error": {"status": str(status_code), "message": msg}}, status_code
 
 class GetRequest(Request):
     @classmethod
