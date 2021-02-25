@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS ntw_salt (
 CREATE TABLE IF NOT EXISTS main.ntw_users (
     id SERIAL PRIMARY KEY,
     user_name TEXT UNIQUE NOT NULL,
-    passw TEXT UNIQUE NOT NULL
+    passw TEXT NOT NULL
 );
 
 CREATE INDEX user_index ON main.ntw_users(user_name);

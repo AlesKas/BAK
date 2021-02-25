@@ -11,7 +11,7 @@ class BaseModel(Model):
 class NtwUsers(BaseModel):
     id = AutoField()
     user_name = TextField(null=False, unique=True)
-    passw = TextField(null=False, unique=True)
+    passw = TextField(null=False, unique=False)
 
     class Meta:
         table_name = "ntw_users"
