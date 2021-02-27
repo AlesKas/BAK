@@ -1,10 +1,10 @@
 import json
-import peewee
 
-from utils.logger import initLogging
-from .base import GetRequest, PutRequest, BaseException
 from utils.db.model import NtwUsers
+from utils.logger import initLogging
+from utils.disk_util import create_user_folder
 from peewee import DoesNotExist, IntegrityError
+from .base import GetRequest, PutRequest, BaseException
 
 LOGGER = initLogging()
 
@@ -47,8 +47,9 @@ class CreateUser(PutRequest):
         user_id = user_id.count()
         try:
             NtwUsers.create(id= user_id+1,user_name=user_name, passw=password)
+            create_user_folder(user_name)
             return
-        except peewee.IntegrityError:
+        except IntegrityError:
             return cls.format_exc(f"Username is already taken", 409)
         except Exception as exc:
             return cls.format_exc(f"Unhandeled error: {exc}", 500)

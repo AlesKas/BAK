@@ -20,6 +20,30 @@ paths:
         400:
           description: API is down
 
+  /salt:
+    get:
+      summary: Get salt from database
+      description: Get salt from database
+      operationId: manager.salt.Salt.get
+      responses:
+        200:
+          description: Salt sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  salt:
+                    type: string
+                    description: Salt for password
+                    example: OPIlkasjbdhar                
+        400:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
+
   /users:
     get:
       summary: Get usernames of users
@@ -108,29 +132,18 @@ paths:
             type: string
             example: blah
 
-  /salt:
-    get:
-      summary: Get salt from database
-      description: Get salt from database
-      operationId: manager.salt.Salt.get
+  /files/{user}:
+    put:
+      summary: Post a file.
+      description: Post a file.
+      operationId: manager.files.FileHandler.put
       responses:
         200:
-          description: Salt sent
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  salt:
-                    type: string
-                    description: Salt for password
-                    example: OPIlkasjbdhar                
+          description: File posted successfully
         400:
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorMsg"
+          description: Error while posting a file.
+
+
 
 components:
   schemas:

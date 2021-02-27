@@ -23,6 +23,8 @@ services:
             context: ./
             dockerfile: ./Dockerfile
         image: "ntw_storage/manager:latest"
+        volumes:
+            - /media/pi/Nový svazek/NAS:/tmp/NAS
         env_file:
             - ./conf/common.env
             - ./conf/manager.env
@@ -31,7 +33,7 @@ services:
             #DEBUG: 'true'
         ports: 
             - 8000:8000
-            - 5678:5678
+            #- 5678:5678
         depends_on: 
             - storage_database
         command: bash /storage/entrypoint.sh manager
