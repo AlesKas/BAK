@@ -5,12 +5,14 @@ info:
   version: "0.1"
 
 servers:
-  - url: http://localhost:8080/
+  - url: http://85.160.74.136:8080/
     description: Example API Service
 
 paths:
   /apistatus:
     get:
+      tags: 
+        - API management
       summary: Health status of application
       description: Checks database availability and API response threshold time.
       operationId: manager.api_status.ApiStatus.get
@@ -22,6 +24,8 @@ paths:
 
   /salt:
     get:
+      tags: 
+        - API management
       summary: Get salt from database
       description: Get salt from database
       operationId: manager.salt.Salt.get
@@ -46,6 +50,8 @@ paths:
 
   /users:
     get:
+      tags: 
+        - User handling
       summary: Get usernames of users
       description: Get usernames of users
       operationId: manager.users.Users.get
@@ -66,6 +72,8 @@ paths:
 
   /users/create:
     put:
+      tags: 
+        - User handling
       summary: Get user based on their id
       description: Get user based on their id
       operationId: manager.users.CreateUser.put
@@ -104,6 +112,8 @@ paths:
 
   /users/auth/{user_name}/{user_passwd}:
     get:
+      tags: 
+        - User handling
       summary: Get user based on their id
       description: Get user based on their id
       operationId: manager.users.UserAuthentication.get
@@ -134,16 +144,59 @@ paths:
 
   /files/{user}:
     put:
+      tags: 
+        - File handling
       summary: Post a file.
       description: Post a file.
-      operationId: manager.files.FileHandler.put
+      operationId: manager.files.FilePutHandler.put
       responses:
         200:
           description: File posted successfully
         400:
           description: Error while posting a file.
-
-
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                filename:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      parameters:
+        - in: path
+          name: user
+          description: Username
+          required: true
+          schema:
+            type: string
+            example: blah
+    get:
+      tags: 
+        - File handling
+      summary: Get files poster by user.
+      description: Get files posted by user.
+      operationId: manager.files.FileGetHandler.get
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FilesGetResponse"
+        400:
+          description: Error
+      parameters:
+        - in: path
+          name: user
+          description: Username
+          required: true
+          schema:
+            type: string
+            example: blah
 
 components:
   schemas:
@@ -165,7 +218,6 @@ components:
             - message
             - status
               
-
     UsersResponse:
       type: object
       properties:
@@ -173,4 +225,20 @@ components:
           type: array
           items:
             type: string
+
+    FilesGetResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              fileName:
+                type: string
+              fileType:
+                type: string
+            required:
+              - fileName
+              - fileType
             
