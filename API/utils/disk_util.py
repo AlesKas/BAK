@@ -1,7 +1,7 @@
 import os
 
-DISK_PARH = "/tmp/NAS/"
+DISK_PATH = "/tmp/NAS/"
 
 def create_user_folder(userName: str):
-    user_path = DISK_PARH + userName
+    user_path = DISK_PATH + userName
     os.mkdir(user_path)
