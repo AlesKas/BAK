@@ -28,7 +28,16 @@ class PutRequest(Request):
 
     @classmethod
     def handle_put(cls, **kwargs):
-        raise NotADirectoryError
+        raise NotImplementedError
+
+class DeleteRequest(Request):
+    @classmethod
+    def delete(cls, **kwargs):
+        return cls.handle_errors(cls.handle_delete, **kwargs)
+
+    @classmethod
+    def handle_delete(cls, **kwargs):
+        return NotImplementedError
 
 class BaseException(Exception):
     def __init__(self, message, status_code):

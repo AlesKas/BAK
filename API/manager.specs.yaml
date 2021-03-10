@@ -1,4 +1,4 @@
-openapi: "3.0.3"
+openapi: "3.0.0"
 
 info:
   title: Cloud storage app
@@ -163,14 +163,33 @@ paths:
           description: File posted successfully
         400:
           description: Error while posting a file.
-      parameters:
-        - in: path
-          name: user
-          description: Username
-          required: true
-          schema:
-            type: string
-            example: blah
+    delete:
+      tags:
+        - File handling
+      summary: Delete file
+      description: Delete file
+      operationId: manager.files.FileDeleteHandler.delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fileName:
+                  type: string
+      responses:
+        200:
+          description: File deleted successfully.
+        400:
+          description: Error while deleting file.
+    parameters:
+      - in: path
+        name: user
+        description: Username
+        required: true
+        schema:
+          type: string
+          example: blah
   
   /files/{user}/{fileName}/download:
     get:

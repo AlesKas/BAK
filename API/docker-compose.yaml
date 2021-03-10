@@ -24,7 +24,7 @@ services:
             dockerfile: ./Dockerfile
         image: "ntw_storage/manager:latest"
         volumes:
-            - /media/pi/Nový svazek/NAS:/tmp/NAS
+            - /media/pi/HDD/NAS:/tmp/NAS
         env_file:
             - ./conf/common.env
             - ./conf/manager.env

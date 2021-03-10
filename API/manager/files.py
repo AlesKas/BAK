@@ -1,9 +1,10 @@
 import os
+import connexion
 
 from utils.logger import initLogging
 from utils.disk_util import DISK_PATH
-from .base import PutRequest, GetRequest
 from flask import send_from_directory, make_response
+from .base import PutRequest, GetRequest, DeleteRequest
 
 LOGGER = initLogging()
 
@@ -30,7 +31,7 @@ class FileGetHandler(GetRequest):
             fileName, fileType = os.path.splitext(base)
             fileResp["fileName"] = fileName
             if fileType == "":
-                fileResp["fileType"] = "dir"
+                fileResp["fileType"] = ""
             else:
                 fileResp["fileType"] = fileType[1:]
             response["data"].append(fileResp)
@@ -48,3 +49,9 @@ class FileGetHandlerDownload(GetRequest):
         response = make_response(send_from_directory(userWorkspace, fileName, as_attachment=True))
         response.direct_passthrough = False
         return response
+
+class FileDeleteHandler(DeleteRequest):
+
+    @classmethod
+    def handle_delete(cls, **kwargs):
+        LOGGER.info("DELETE")
