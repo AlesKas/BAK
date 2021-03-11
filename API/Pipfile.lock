@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "01ac145b379e37942984691105b11bcd1dc1861ca765c6f13ce43f2edc25c58f"
+            "sha256": "b42df4716c1111013b1adbae920ae39b2ee9ee01337a80feb899d33cacacaf46"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -67,6 +67,7 @@
                 "sha256:4efa1ae2d7c9865af48986de8aeb8504bf32c7f3d6fdc9353d34b21f4b127060",
                 "sha256:8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557"
             ],
+            "index": "pypi",
             "version": "==1.1.2"
         },
         "idna": {
@@ -82,6 +83,13 @@
                 "sha256:f38b2b640938a4f35ade69ac3d053042959b62a0f1076a5bbaa1b9526605a8a2"
             ],
             "version": "==0.5.1"
+        },
+        "isodate": {
+            "hashes": [
+                "sha256:2e364a3d5759479cdb2d37cce6b9376ea504db2ff90252a2e5b7cc89cc9ff2d8",
+                "sha256:aa4d33c06640f5352aca96e4b81afd8ab3b47337cc12089822d6f322ac772c81"
+            ],
+            "version": "==0.6.0"
         },
         "itsdangerous": {
             "hashes": [
@@ -169,13 +177,21 @@
             ],
             "version": "==1.1.1"
         },
+        "openapi-schema-validator": {
+            "hashes": [
+                "sha256:60d3401cc1579eed0c1f2bec1a669a964a9974bc6a940261bf7c8aa9edb7d409",
+                "sha256:66fa34b40a40b1ff927e1db8bf5a20dc84fd0933fc284ec0dc87d7ae889a0874",
+                "sha256:782c7be7fd75ab172fb47b4504a63833001f7d5de0a06a08998c146e5f923f0a"
+            ],
+            "version": "==0.1.4"
+        },
         "openapi-spec-validator": {
             "hashes": [
-                "sha256:6dd75e50c94f1bb454d0e374a56418e7e06a07affb2c7f1df88564c5d728dac3",
-                "sha256:79381a69b33423ee400ae1624a461dae7725e450e2e306e32f2dd8d16a4d85cb",
-                "sha256:ec1b01a00e20955a527358886991ae34b4b791b253027ee9f7df5f84b59d91c7"
+                "sha256:4083fc5aac3e9f751c2a82d4ec5cf3adad5f967d0faf31495d8b56a0b0f9705c",
+                "sha256:53ba3d884e98ff2062d5ada025aa590541dcd665b8f81067dc82dd61c0923759",
+                "sha256:e11df7c559339027bd04f2399bc82474983129a6a7a6a0421eaa95e2c844d686"
             ],
-            "version": "==0.2.9"
+            "version": "==0.3.0"
         },
         "peewee": {
             "hashes": [
