@@ -24,7 +24,8 @@ class FileGetHandler(GetRequest):
         response = {}
         response["data"] = []
         currentUser = kwargs["user"]
-        userWorkspace = DISK_PATH + currentUser
+        directory = kwargs["directory"]
+        userWorkspace = DISK_PATH + currentUser + directory
         for file in os.listdir(userWorkspace):
             fileResp = {}
             base = os.path.basename(file)

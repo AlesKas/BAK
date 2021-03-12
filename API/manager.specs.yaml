@@ -247,7 +247,12 @@ paths:
           required: true
           schema:
             type: string
-            example: blah      
+            example: blah     
+        - in: query
+          name: directory
+          schema:
+            type: string
+          allowEmptyValue: true
 
 components:
   schemas:

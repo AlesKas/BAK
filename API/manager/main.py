@@ -17,4 +17,4 @@ if __name__ == '__main__':
         ptvsd.wait_for_attach()
 
     LOGGER.info("Starting manager server")
-    app.run(host='0.0.0.0', port=8000, debug=debug_mode)
+    app.run(host='0.0.0.0', port=8000, debug=debug_mode, threaded=True)
