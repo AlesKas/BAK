@@ -1,5 +1,6 @@
 import os
 import connexion
+import 
 
 from utils.logger import initLogging
 from utils.disk_util import DISK_PATH
@@ -46,7 +47,7 @@ class FileGetHandlerDownload(GetRequest):
     def handle_get(cls, **kwargs):
         fileName = kwargs["fileName"]
         currentUser = kwargs["user"]
-        userWorkspace = DISK_PATH + currentUser + "/"
+        userWorkspace = DISK_PATH + currentUser + kwargs["directory"]
         response = make_response(send_from_directory(userWorkspace, fileName, as_attachment=True))
         response.direct_passthrough = False
         return response
@@ -56,3 +57,9 @@ class FileDeleteHandler(DeleteRequest):
     @classmethod
     def handle_delete(cls, **kwargs):
         LOGGER.info("DELETE")
+
+class UngaBunga(GetRequest):
+
+    @classmethod
+    def handle_get(cls, **kwargs):
+        pass

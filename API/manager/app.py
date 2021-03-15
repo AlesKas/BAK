@@ -20,7 +20,6 @@ def create_app():
 
     @app.app.after_request
     def _set_headers(response):
-        response.direct_passthrough = False
         return response
 
     @app.app.before_request

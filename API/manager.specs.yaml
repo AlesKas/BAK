@@ -191,7 +191,7 @@ paths:
           type: string
           example: blah
   
-  /files/{user}/{fileName}/download:
+  /files/download:
     get:
       tags: 
         - File handling
@@ -209,14 +209,21 @@ paths:
         400:
           description: Error
       parameters:
-        - in: path
+        - in: query
           name: user
           description: Username
           required: true
           schema:
             type: string
             example: blah
-        - in: path
+        - in: query
+          name: directory
+          description: Current directory
+          required: true
+          schema:
+            type: string
+            example: /
+        - in: query
           name: fileName
           description: File name
           required: true
@@ -253,6 +260,24 @@ paths:
           schema:
             type: string
           allowEmptyValue: true
+
+  /file/unga:
+    get:
+      tags: 
+        - File handling
+      summary: Get files poster by user.
+      description: Get files posted by user.
+      operationId: manager.files.UngaBunga.get
+      responses:
+        200:
+          description: OK
+          content:
+             image/jpg:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: Error
 
 components:
   schemas:
