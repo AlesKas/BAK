@@ -15,7 +15,7 @@ services:
         ports:
             - 5432:5432
         volumes:
-            - /var/lib/bak/postgres/data
+            - $HOME/docker/volumes/postgres:/var/lib/postgresql/data
 
     storage_manager:
         container_name: storage_manager

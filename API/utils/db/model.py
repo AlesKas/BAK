@@ -1,4 +1,4 @@
-from peewee import Model, TextField, DateTimeField, DecimalField, ForeignKeyField, BooleanField, IntegerField, AutoField, UUIDField, CharField
+from peewee import Model, TextField, AutoField
 from .db_util import DB
 
 SCHEMA_NAME = 'main'
@@ -18,6 +18,18 @@ class NtwUsers(BaseModel):
         database = DB
         schema = SCHEMA_NAME
 
+class Share(BaseModel):
+    from_user = TextField(null=False)
+    to_user = TextField(null=False)
+    directory = TextField(null=False)
+    file_name = TextField()
+
+    class Meta:
+        table_name = "share"
+        database = DB
+        schema = SCHEMA_NAME
+        primary_key = False
+
 class NtwSalt(BaseModel):
     salt = TextField(null=False)
 
@@ -25,5 +37,3 @@ class NtwSalt(BaseModel):
         table_name = "ntw_salt"
         primary_key = False
         database = DB
-
-DB.create_tables([NtwUsers])

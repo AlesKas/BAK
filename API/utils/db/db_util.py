@@ -1,6 +1,6 @@
 from  os import getenv
 from ..logger import initLogging
-from playhouse.postgres_ext import PostgresqlExtDatabase, PostgresqlDatabase
+from playhouse.postgres_ext import PostgresqlExtDatabase
 
 LOGGER = initLogging()
 

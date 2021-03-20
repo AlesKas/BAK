@@ -12,8 +12,9 @@ class Users(GetRequest):
 
     @classmethod
     def handle_get(cls, **kwargs):
+        currentUser = kwargs['user']
         try:
-            data = (NtwUsers.select())
+            data = (NtwUsers.select().where(NtwUsers.user_name != currentUser))
         except ValueError:
             raise Exception
         response = {}

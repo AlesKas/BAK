@@ -1,7 +1,7 @@
 import os
-import connexion
-import 
+import shutil
 
+from PIL import Image
 from utils.logger import initLogging
 from utils.disk_util import DISK_PATH
 from flask import send_from_directory, make_response
@@ -13,7 +13,7 @@ class FilePutHandler(PutRequest):
 
     @classmethod
     def handle_put(cls, **kwargs):
-        filePath = DISK_PATH + kwargs["user"]
+        filePath = DISK_PATH + kwargs["user"] + kwargs["directory"]
         file = kwargs["fileName"]
         file.save(os.path.join(filePath, file.filename))
         return 200
@@ -56,10 +56,19 @@ class FileDeleteHandler(DeleteRequest):
 
     @classmethod
     def handle_delete(cls, **kwargs):
-        LOGGER.info("DELETE")
+        userName = kwargs["user"]
+        fileName = kwargs["fileName"]
+        fullFilePath = DISK_PATH + userName + fileName
+        if os.path.isdir(fullFilePath):
+            shutil.rmtree(fullFilePath)
+        else:
+            os.remove(fullFilePath)
+        return 200
 
-class UngaBunga(GetRequest):
+class FolderHandler(PutRequest):
 
     @classmethod
-    def handle_get(cls, **kwargs):
-        pass
+    def handle_put(cls, **kwargs):
+        dirPath = DISK_PATH + kwargs["user"] + kwargs["directory"] + kwargs["folderName"]
+        os.mkdir(dirPath)
+        return 200

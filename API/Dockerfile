@@ -6,14 +6,17 @@ RUN apt remove -y python3.6
 RUN apt-get install -y python3.8
 RUN apt-get install -y python3-pip
 RUN apt-get install -y python3.8-dev
+RUN apt-get install -y build-essential
+RUN apt-get install -y libjpeg-dev
+RUN apt-get install -y zlib1g-dev
+RUN apt-get install -y libssl-dev
+RUN apt-get install -y libffi-dev 
 RUN rm -rf /var/lib/apt/lists/
 
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 2
 RUN rm /usr/bin/python3
 RUN ln -s python3.8 /usr/bin/python3
-
-RUN python3 -V
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
@@ -22,8 +25,6 @@ ENV PYTHONFAULTHANDLER 1
 ENV FLASK_APP manager.main
 
 WORKDIR /storage
-
-RUN python3 --version
 
 ADD Pipfile*  /storage/
 
