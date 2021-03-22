@@ -379,6 +379,31 @@ paths:
           schema:
             type: string
             example: blah     
+          
+  /share/{user}/shared:
+    get:
+      tags:
+        - File sharing
+      summary: Get list of shared from users
+      description: Get list of shared from users
+      operationId: manager.share.ListSharedUsers.get
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/UsersResponse"
+        400:
+          description: Error
+      parameters:
+        - in: path
+          name: user
+          description: Username
+          required: true
+          schema:
+            type: string
+            example: blah    
 
 components:
   schemas:

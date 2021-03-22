@@ -34,6 +34,19 @@ class ListSharedFiles(GetRequest):
 
 #TODO: List shared files from specifis user in specific directory.
 
+class ListSharedUsers(GetRequest):
+
+    @classmethod
+    def handle_get(cls, **kwargs):
+        toUser = kwargs["user"]
+        response = {}
+        response["data"] = []
+        query = Share.select(Share.from_user).distinct().where(Share.to_user == toUser)
+        for user in query:
+            response["data"].append(user.from_user)
+        return response
+
+
 class ShareFile(PutRequest):
 
     @classmethod
