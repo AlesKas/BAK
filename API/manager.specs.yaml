@@ -42,7 +42,7 @@ paths:
                     description: Salt for password
                     example: OPIlkasjbdhar                
         400:
-          description: Server error
+          description: Error
           content:
             application/json:
               schema:
@@ -169,7 +169,11 @@ paths:
         200:
           description: File posted successfully
         400:
-          description: Error while posting a file.
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
     parameters:
       - in: path
         name: user
@@ -197,8 +201,11 @@ paths:
         200:
           description: File deleted successfully.
         400:
-          description: Error while deleting file.
-    parameters:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       - in: path
         name: user
         description: Username
@@ -239,6 +246,10 @@ paths:
                 format: binary
         400:
           description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: query
           name: user
@@ -286,6 +297,10 @@ paths:
                 $ref: "#/components/schemas/FilesGetResponse"
         400:
           description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user
@@ -320,6 +335,10 @@ paths:
           description: OK
         400:
           description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user
@@ -351,6 +370,10 @@ paths:
           description: OK
         400:
           description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user
@@ -395,6 +418,10 @@ paths:
                 $ref: "#/components/schemas/FilesGetResponse"
         400:
           description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user
@@ -420,6 +447,10 @@ paths:
                 $ref: "#/components/schemas/UsersResponse"
         400:
           description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user
@@ -444,7 +475,11 @@ components:
             status:
               type: string
               description: Error code
-              example: 404
+              example: 500
+            error:
+              type: string
+              description: detailed erro message
+              description: list index out of range
           required:
             - message
             - status

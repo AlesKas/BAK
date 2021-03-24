@@ -14,6 +14,7 @@ class FilePutHandler(PutRequest):
 
     @classmethod
     def handle_put(cls, **kwargs):
+        #TODO: Check file size
         filePath = DISK_PATH + kwargs["user"] + kwargs["directory"]
         file = kwargs["fileName"]
         file.save(os.path.join(filePath, file.filename))

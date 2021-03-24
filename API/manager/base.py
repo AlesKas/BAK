@@ -6,11 +6,11 @@ class Request:
         except BaseException as exc:
             return exc.format_exc()
         except Exception as exc:
-            return cls.format_exc("Internal server error: {}".format(exc), 500) 
+            return cls.format_exc("Internal server error: {}".format(exc), 500, str(exc)) 
 
     @staticmethod
-    def format_exc(msg: str, status_code: int) -> object:
-        return {"error": {"status": str(status_code), "message": msg}}, status_code
+    def format_exc(msg: str, status_code: int, error: str) -> object:
+        return {"error": {"status": str(status_code), "message": msg, "error": error}}, status_code
 
 class GetRequest(Request):
     @classmethod
@@ -46,4 +46,4 @@ class BaseException(Exception):
         super().__init__()
 
     def format_exc(self):
-        return Request.format_exc(self.message, self.status_code)
+        return Request.format_exc(self.message, self.status_code, self.message)
