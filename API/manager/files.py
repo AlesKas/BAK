@@ -1,11 +1,12 @@
 import os
 import shutil
 
-from PIL import Image
+#from PIL import Image
+from utils.db.model import Share
 from utils.logger import initLogging
-from utils.disk_util import DISK_PATH
 from flask import send_from_directory, make_response
 from .base import PutRequest, GetRequest, DeleteRequest
+from utils.disk_util import DISK_PATH, remove_shared_file_from_db
 
 LOGGER = initLogging()
 
@@ -26,7 +27,14 @@ class FileGetHandler(GetRequest):
         response["data"] = []
         currentUser = kwargs["user"]
         directory = kwargs["directory"]
-        userWorkspace = DISK_PATH + currentUser + directory
+        if kwargs["toUser"]:
+            toUser = kwargs["toUser"]
+            strippedDir = directory.split("/")[1]
+            query = Share.select(Share.directory).distinct().where((Share.from_user == currentUser) & (Share.to_user == toUser) & (Share.file_name == strippedDir))
+            sharedDir = [f for f in query]
+            userWorkspace = DISK_PATH + currentUser + sharedDir[0].directory + directory
+        else:
+            userWorkspace = DISK_PATH + currentUser + directory
         for file in os.listdir(userWorkspace):
             fileResp = {}
             base = os.path.basename(file)
@@ -47,7 +55,15 @@ class FileGetHandlerDownload(GetRequest):
     def handle_get(cls, **kwargs):
         fileName = kwargs["fileName"]
         currentUser = kwargs["user"]
-        userWorkspace = DISK_PATH + currentUser + kwargs["directory"]
+        directory = kwargs["directory"]
+        if kwargs["toUser"]:
+            toUser = kwargs["toUser"]
+            strippedDir = directory.split("/")[1]
+            query = Share.select(Share.directory).where((Share.from_user == currentUser) & (Share.to_user == toUser) & (Share.file_name == strippedDir))
+            sharedDir = [f for f in query]
+            userWorkspace = DISK_PATH + currentUser + sharedDir[0].directory + directory
+        else:
+            userWorkspace = DISK_PATH + currentUser + directory
         response = make_response(send_from_directory(userWorkspace, fileName, as_attachment=True))
         response.direct_passthrough = False
         return response
@@ -60,8 +76,12 @@ class FileDeleteHandler(DeleteRequest):
         fileName = kwargs["fileName"]
         fullFilePath = DISK_PATH + userName + fileName
         if os.path.isdir(fullFilePath):
+            remove_shared_file_from_db(userName, fullFilePath)
             shutil.rmtree(fullFilePath)
         else:
+            fileName = fileName.split("/")[-1]
+            to_del = Share.delete().where((Share.from_user == userName) & (Share.file_name == fileName)) 
+            to_del.execute()
             os.remove(fullFilePath)
         return 200
 

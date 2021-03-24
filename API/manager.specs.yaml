@@ -51,7 +51,7 @@ paths:
   /users/{user}:
     get:
       tags: 
-        - User handling
+        - File sharing
       summary: Get usernames of users
       description: Get usernames of users
       operationId: manager.users.Users.get
@@ -206,6 +206,14 @@ paths:
         schema:
           type: string
           example: blah
+      # - in: query
+      #   name: directory
+      #   description: File's directory
+      #   required: true
+      #   schema:
+      #     type: string
+      #     example: /
+      #   allowEmptyValue: true
       - in: query
         name: fileName
         description: File to delete
@@ -247,6 +255,14 @@ paths:
             type: string
             example: /
         - in: query
+          name: toUser
+          description: Shared user
+          required: true
+          schema:
+            type: string
+            example: blah
+          allowEmptyValue: true
+        - in: query
           name: fileName
           description: File name
           required: true
@@ -283,6 +299,14 @@ paths:
           schema:
             type: string
             example: /
+        - in: query
+          name: toUser
+          description: Shared file to user
+          required: true
+          schema:
+            type: string
+            example: blah
+          allowEmptyValue: true
 
   /files/folder/{user}:
     put:
