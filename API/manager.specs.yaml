@@ -68,6 +68,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorMsg"
+        500:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user
@@ -110,6 +116,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorMsg"
+        500:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
         409:
           description: Username already taken.
           content:
@@ -129,6 +141,12 @@ paths:
           description: User authentication successful
         400:
           description: User authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
+        500:
+          description: Error
           content:
             application/json:
               schema:
@@ -174,6 +192,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorMsg"
+        500:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
     parameters:
       - in: path
         name: user
@@ -206,28 +230,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorMsg"
-      - in: path
-        name: user
-        description: Username
-        required: true
-        schema:
-          type: string
-          example: blah
-      # - in: query
-      #   name: directory
-      #   description: File's directory
-      #   required: true
-      #   schema:
-      #     type: string
-      #     example: /
-      #   allowEmptyValue: true
-      - in: query
-        name: fileName
-        description: File to delete
-        required: true
-        schema:
-          type: string
-          example: blah.png
+        500:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
+      parameters:
+        - in: path
+          name: user
+          description: Username
+          required: true
+          schema:
+            type: string
+            example: blah
+        - in: query
+          name: fileName
+          description: File to delete
+          required: true
+          schema:
+            type: string
+            example: blah.png
   
   /files/download:
     get:
@@ -245,6 +268,12 @@ paths:
                 type: string
                 format: binary
         400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
+        500:
           description: Error
           content:
             application/json:
@@ -301,6 +330,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorMsg"
+        500:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user
@@ -339,6 +374,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorMsg"
+        500:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user
@@ -369,6 +410,12 @@ paths:
         200:
           description: OK
         400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
+        500:
           description: Error
           content:
             application/json:
@@ -422,6 +469,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorMsg"
+        500:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
       parameters:
         - in: path
           name: user
@@ -446,6 +499,12 @@ paths:
               schema: 
                 $ref: "#/components/schemas/UsersResponse"
         400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMsg"
+        500:
           description: Error
           content:
             application/json:
@@ -478,8 +537,8 @@ components:
               example: 500
             error:
               type: string
-              description: detailed erro message
-              description: list index out of range
+              description: detailed error message
+              example: list index out of range
           required:
             - message
             - status
@@ -504,6 +563,8 @@ components:
                 type: string
               fileType:
                 type: string
+              isDir:
+                type: boolean
             required:
               - fileName
               - fileType

@@ -1,7 +1,7 @@
 import os
 import shutil
+import unicodedata
 
-#from PIL import Image
 from utils.db.model import Share
 from utils.logger import initLogging
 from flask import send_from_directory, make_response
@@ -14,10 +14,14 @@ class FilePutHandler(PutRequest):
 
     @classmethod
     def handle_put(cls, **kwargs):
-        #TODO: Check file size
         filePath = DISK_PATH + kwargs["user"] + kwargs["directory"]
         file = kwargs["fileName"]
-        file.save(os.path.join(filePath, file.filename))
+        incomingFileSize = os.fstat(file.fileno()).st_size
+        _, _, free = shutil.disk_usage(DISK_PATH)
+        if incomingFileSize > free:
+            return cls.format_exc("Internal server error", 500,"Not enough free space.") 
+        savePath = filePath + str(unicodedata.normalize('NFKD', file.filename).encode('ascii', 'ignore'))[2:-1]
+        file.save(savePath)
         return 200
 
 class FileGetHandler(GetRequest):
@@ -42,9 +46,11 @@ class FileGetHandler(GetRequest):
             fileName, fileType = os.path.splitext(base)
             fileResp["fileName"] = fileName
             if fileType == "":
+                fileResp["isDir"] = True
                 fileResp["fileType"] = ""
             else:
                 fileResp["fileType"] = fileType[1:]
+                fileResp["isDir"] = False
             response["data"].append(fileResp)
 
         response["data"] = sorted(response["data"], key=lambda k: k["fileType"])
@@ -59,8 +65,11 @@ class FileGetHandlerDownload(GetRequest):
         directory = kwargs["directory"]
         if kwargs["toUser"]:
             toUser = kwargs["toUser"]
-            strippedDir = directory.split("/")[1]
-            query = Share.select(Share.directory).where((Share.from_user == currentUser) & (Share.to_user == toUser) & (Share.file_name == strippedDir))
+            if directory != "/":
+                strippedDir = directory.split("/")[1]
+                query = Share.select(Share.directory).where((Share.from_user == currentUser) & (Share.to_user == toUser) & (Share.file_name == strippedDir))
+            else:
+                query = Share.select(Share.directory).where((Share.from_user == currentUser) & (Share.to_user == toUser) & (Share.directory == directory))
             sharedDir = [f for f in query]
             userWorkspace = DISK_PATH + currentUser + sharedDir[0].directory + directory
         else:

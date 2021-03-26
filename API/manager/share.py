@@ -18,15 +18,18 @@ class ListSharedFiles(GetRequest):
         query = Share.select().where(Share.to_user == user)
         for item in query:
             fileResp = {}
-            file = DISK_PATH + item.from_user + "/" + item.file_name
+            workspace = DISK_PATH + item.from_user + "/"
+            file = workspace + item.file_name
             base = os.path.basename(file)
             fileName, fileType = os.path.splitext(base)
             fileResp["fileName"] = fileName
             fileResp["fromUser"] = item.from_user
             if fileType == "":
                 fileResp["fileType"] = ""
+                fileResp["isDir"] = True
             else:
                 fileResp["fileType"] = fileType[1:]
+                fileResp["isDir"] = False
             response["data"].append(fileResp)
         response["data"] = sorted(response["data"], key=lambda k: k["fileType"])
         return response
