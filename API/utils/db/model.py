@@ -5,7 +5,7 @@ SCHEMA_NAME = 'main'
 
 class BaseModel(Model):
 
-    class MetaData:
+    class Meta:
         database = DB
 
 class NtwUsers(BaseModel):
@@ -15,7 +15,6 @@ class NtwUsers(BaseModel):
 
     class Meta:
         table_name = "ntw_users"
-        database = DB
         schema = SCHEMA_NAME
 
 class Share(BaseModel):
@@ -26,7 +25,6 @@ class Share(BaseModel):
 
     class Meta:
         table_name = "share"
-        database = DB
         schema = SCHEMA_NAME
         primary_key = False
 
@@ -36,4 +34,3 @@ class NtwSalt(BaseModel):
     class Meta:
         table_name = "ntw_salt"
         primary_key = False
-        database = DB
