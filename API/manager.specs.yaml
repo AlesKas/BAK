@@ -488,8 +488,8 @@ paths:
     get:
       tags:
         - File sharing
-      summary: Get list of shared from users
-      description: Get list of shared from users
+      summary: Get list of shared files from users
+      description: Get list of shared files from users
       operationId: manager.share.ListSharedUsers.get
       responses:
         200:

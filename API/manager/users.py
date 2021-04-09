@@ -44,10 +44,8 @@ class CreateUser(PutRequest):
         data = data['body']
         password = data['password']
         user_name = data['userName']
-        user_id = NtwUsers.select()
-        user_id = user_id.count()
         try:
-            NtwUsers.create(id= user_id+1,user_name=user_name, passw=password)
+            NtwUsers.create(user_name=user_name, passw=password)
             create_user_folder(user_name)
             return
         except IntegrityError:
