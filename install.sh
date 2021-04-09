@@ -1,6 +1,5 @@
 if [ -x "$(command -v docker)" ]; then
     echo "Docker already installed."
-    # command
 else
     echo "Installing docker"
     curl -fsSL get.docker.com -o get-docker.sh
