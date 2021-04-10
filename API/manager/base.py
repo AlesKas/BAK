@@ -21,13 +21,13 @@ class GetRequest(Request):
     def handle_get(cls, **kwargs):
         raise NotImplementedError
 
-class PutRequest(Request):
+class PostRequest(Request):
     @classmethod
-    def put(cls, **kwargs):
-        return cls.handle_errors(cls.handle_put, **kwargs)
+    def post(cls, **kwargs):
+        return cls.handle_errors(cls.handle_post, **kwargs)
 
     @classmethod
-    def handle_put(cls, **kwargs):
+    def handle_post(cls, **kwargs):
         raise NotImplementedError
 
 class DeleteRequest(Request):

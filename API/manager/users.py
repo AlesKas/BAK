@@ -4,7 +4,7 @@ from utils.db.model import NtwUsers
 from utils.logger import initLogging
 from utils.disk_util import create_user_folder
 from peewee import DoesNotExist, IntegrityError
-from .base import GetRequest, PutRequest, BaseException
+from .base import GetRequest, PostRequest, BaseException
 
 LOGGER = initLogging()
 
@@ -35,10 +35,10 @@ class UserAuthentication(GetRequest):
             return cls.format_exc("Username or password incorrect", 404)
         return 200
 
-class CreateUser(PutRequest):
+class CreateUser(PostRequest):
     
     @classmethod
-    def handle_put(cls, **kwargs):
+    def handle_post(cls, **kwargs):
         data = str(kwargs).replace("\'", "\"")
         data = json.loads(data)
         data = data['body']

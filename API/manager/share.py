@@ -4,7 +4,7 @@ import json
 from utils.db.model import Share, NtwUsers
 from utils.logger import initLogging
 from utils.disk_util import DISK_PATH
-from .base import GetRequest, PutRequest
+from .base import GetRequest, PostRequest
 
 LOGGER = initLogging()
 
@@ -52,10 +52,10 @@ class ListSharedUsers(GetRequest):
         return response
 
 
-class ShareFile(PutRequest):
+class ShareFile(PostRequest):
 
     @classmethod
-    def handle_put(cls, **kwargs):
+    def handle_post(cls, **kwargs):
         fromUser = kwargs["user"]
         toUser = kwargs["toUser"]
         sharedDir = kwargs["directory"]

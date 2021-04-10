@@ -5,15 +5,15 @@ import unicodedata
 from utils.db.model import Share, NtwUsers
 from utils.logger import initLogging
 from flask import send_from_directory, make_response
-from .base import PutRequest, GetRequest, DeleteRequest
+from .base import PostRequest, GetRequest, DeleteRequest
 from utils.disk_util import DISK_PATH, remove_shared_file_from_db
 
 LOGGER = initLogging()
 
-class FilePutHandler(PutRequest):
+class FilePostHandler(PostRequest):
 
     @classmethod
-    def handle_put(cls, **kwargs):
+    def handle_post(cls, **kwargs):
         filePath = DISK_PATH + kwargs["user"] + kwargs["directory"]
         file = kwargs["fileName"]
         incomingFileSize = os.fstat(file.fileno()).st_size
@@ -102,10 +102,10 @@ class FileDeleteHandler(DeleteRequest):
             os.remove(fullFilePath)
         return 200
 
-class FolderHandler(PutRequest):
+class FolderHandler(PostRequest):
 
     @classmethod
-    def handle_put(cls, **kwargs):
+    def handle_post(cls, **kwargs):
         dirPath = DISK_PATH + kwargs["user"] + kwargs["directory"] + kwargs["folderName"]
         os.mkdir(dirPath)
         return 200

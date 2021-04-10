@@ -84,12 +84,12 @@ paths:
             example: blah
 
   /users/create:
-    put:
+    post:
       tags: 
         - User handling
       summary: Get user based on their id
       description: Get user based on their id
-      operationId: manager.users.CreateUser.put
+      operationId: manager.users.CreateUser.post
       requestBody:
         description: Post data
         required: true
@@ -168,12 +168,12 @@ paths:
             example: blah
 
   /files/{user}:
-    put:
+    post:
       tags: 
         - File handling
       summary: Post a file.
       description: Post a file.
-      operationId: manager.files.FilePutHandler.put
+      operationId: manager.files.FilePostHandler.post
       requestBody:
         content:
           multipart/form-data:
@@ -359,12 +359,12 @@ paths:
           allowEmptyValue: true
 
   /files/folder/{user}:
-    put:
+    post:
       tags: 
         - File handling
       summary: Create remote folder.
       description: Create remote folder.
-      operationId: manager.files.FolderHandler.put
+      operationId: manager.files.FolderHandler.post
       responses:
         200:
           description: OK
@@ -400,12 +400,12 @@ paths:
             example: /
 
   /share/{user}:
-    put:
+    post:
       tags:
         - File sharing
       summary: Create shared file
       description: Create shared file
-      operationId: manager.share.ShareFile.put
+      operationId: manager.share.ShareFile.post
       responses:
         200:
           description: OK
