@@ -1,0 +1,49 @@
+\babel@toc {czech}{}
+\contentsline {section}{\numberline {1}Úvod}{8}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Motivace}{8}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Stávající cloudová řešení}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Google Drive}{9}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Microsoft OneDrive}{9}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Dropbox}{10}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}IDrive}{10}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Backblaze}{11}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}pCloud}{11}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Použité technologie}{13}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Server}{13}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Docker}{13}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Python/Connexion}{14}{subsubsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.2}Klientské části}{14}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}C++}{14}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Qt}{15}{subsubsection.3.2.2}%
+\contentsline {section}{\numberline {4}Server}{16}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Integrace databáze}{16}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Čekání na databázi}{16}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Databázové třídy}{16}{subsubsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {4.1.3}Metatřída a základní model}{17}{subsubsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.2}Struktura API}{18}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Směřování}{18}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}API endpointy}{18}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}Docker volume}{19}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}OpenAPI a dokumentace}{20}{subsubsection.4.2.4}%
+\contentsline {subsubsection}{\numberline {4.2.5}Vývoj a debuggovací mód}{21}{subsubsection.4.2.5}%
+\contentsline {section}{\numberline {5}Klientské části}{22}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Dostupné platformy}{22}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Komunikace aplikace se serverem}{22}{subsubsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.2}Uživatelská dokumentace}{22}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Dialog pro zadání IP adresy}{22}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Přihlašovací dialog}{22}{subsubsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.3}Uživatelské soubory}{23}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.4}Sdílené soubory}{24}{subsubsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.3}Nasazení aplikace}{24}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Příručka vlastního spuštění server}{25}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Statická IP adresa}{25}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Nastavení úložiště}{25}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Možnosti dalšího vývoje}{26}{section.7}%
+\contentsline {section}{Z\'av\v er}{27}{section*.6}%
+\babel@toc {czech}{}
+\babel@toc {czech}{}
+\contentsline {section}{Conclusions}{28}{section*.8}%
+\babel@toc {english}{}
+\babel@toc {czech}{}
+\contentsline {section}{Literatura}{29}{section*.10}%
+\contentsline {section}{\numberline {A}Obsah přiloženého CD/DVD}{31}{appendix.A}%
