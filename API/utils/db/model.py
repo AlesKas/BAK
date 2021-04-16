@@ -1,32 +1,30 @@
-from peewee import Model, TextField, AutoField
-from .db_util import DB
+from peewee import Model, TextField, AutoField, ForeignKeyField
+from .db_util import DB, UUIDField
 
 SCHEMA_NAME = 'main'
 
 class BaseModel(Model):
 
-    class MetaData:
+    class Meta:
         database = DB
 
 class NtwUsers(BaseModel):
-    id = AutoField()
+    id = UUIDField(primary_key=True)
     user_name = TextField(null=False, unique=True)
     passw = TextField(null=False, unique=False)
 
     class Meta:
         table_name = "ntw_users"
-        database = DB
         schema = SCHEMA_NAME
 
 class Share(BaseModel):
-    from_user = TextField(null=False)
-    to_user = TextField(null=False)
+    from_user = ForeignKeyField(NtwUsers, to_field='id')
+    to_user = ForeignKeyField(NtwUsers, to_field='id')
     directory = TextField(null=False)
     file_name = TextField()
 
     class Meta:
         table_name = "share"
-        database = DB
         schema = SCHEMA_NAME
         primary_key = False
 
@@ -36,4 +34,3 @@ class NtwSalt(BaseModel):
     class Meta:
         table_name = "ntw_salt"
         primary_key = False
-        database = DB

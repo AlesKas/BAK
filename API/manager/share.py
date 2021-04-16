@@ -1,10 +1,10 @@
 import os
 import json
 
-from utils.db.model import Share
+from utils.db.model import Share, NtwUsers
 from utils.logger import initLogging
 from utils.disk_util import DISK_PATH
-from .base import GetRequest, PutRequest
+from .base import GetRequest, PostRequest
 
 LOGGER = initLogging()
 
@@ -14,16 +14,17 @@ class ListSharedFiles(GetRequest):
     def handle_get(cls, **kwargs):
         response = {}
         response["data"] = []
-        user = kwargs["user"]
-        query = Share.select().where(Share.to_user == user)
+        toUser = kwargs["user"]
+        toUser = NtwUsers.get(NtwUsers.user_name == toUser).id
+        query = Share.select().where(Share.to_user == toUser)
         for item in query:
             fileResp = {}
-            workspace = DISK_PATH + item.from_user + "/"
+            workspace = DISK_PATH + item.from_user.user_name + "/"
             file = workspace + item.file_name
             base = os.path.basename(file)
             fileName, fileType = os.path.splitext(base)
             fileResp["fileName"] = fileName
-            fileResp["fromUser"] = item.from_user
+            fileResp["fromUser"] = item.from_user.user_name
             if fileType == "":
                 fileResp["fileType"] = ""
                 fileResp["isDir"] = True
@@ -35,8 +36,6 @@ class ListSharedFiles(GetRequest):
         return response
 
 
-#TODO: List shared files from specifis user in specific directory.
-
 class ListSharedUsers(GetRequest):
 
     @classmethod
@@ -44,23 +43,23 @@ class ListSharedUsers(GetRequest):
         toUser = kwargs["user"]
         response = {}
         response["data"] = []
-        query = Share.select(Share.from_user).distinct().where(Share.to_user == toUser)
+        toUser = NtwUsers.get(NtwUsers.user_name == toUser).id
+        query = Share.select().distinct().where(Share.to_user == toUser)
         for user in query:
-            response["data"].append(user.from_user)
+            sharedUser = NtwUsers.get(NtwUsers.id == user.from_user)
+            if sharedUser.user_name not in response["data"]:
+                response["data"].append(sharedUser.user_name)
         return response
 
 
-class ShareFile(PutRequest):
+class ShareFile(PostRequest):
 
     @classmethod
-    def handle_put(cls, **kwargs):
+    def handle_post(cls, **kwargs):
         fromUser = kwargs["user"]
         toUser = kwargs["toUser"]
         sharedDir = kwargs["directory"]
         fileName = kwargs["fileName"]
-
-        # if os.path.isdir(DISK_PATH + fromUser + sharedDir + fileName):
-        #     sharedDir += fileName
-        #     Share.create(from_user=fromUser, to_user=toUser, directory=sharedDir, file_name=None)
-        # else:
+        fromUser = NtwUsers.get(NtwUsers.user_name == fromUser).id
+        toUser = NtwUsers.get(NtwUsers.user_name == toUser).id
         Share.create(from_user=fromUser, to_user=toUser, directory=sharedDir, file_name=fileName)
