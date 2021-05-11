@@ -93,6 +93,7 @@ class FileDeleteHandler(DeleteRequest):
         if os.path.isdir(fullFilePath):
             remove_shared_file_from_db(from_user, fullFilePath)
             shutil.rmtree(fullFilePath)
+            fileName = fileName.split("/")[-1]
             to_del = Share.delete().where((Share.from_user == from_user) & (Share.file_name == fileName)) 
             to_del.execute()
         else:
@@ -106,6 +107,8 @@ class FolderHandler(PostRequest):
 
     @classmethod
     def handle_post(cls, **kwargs):
-        dirPath = DISK_PATH + kwargs["user"] + kwargs["directory"] + kwargs["folderName"]
+        folderName = kwargs["folderName"]
+        folderName = str(unicodedata.normalize('NFKD', folderName).encode('ascii', 'ignore'))[2:-1]
+        dirPath = DISK_PATH + kwargs["user"] + kwargs["directory"] + folderName
         os.mkdir(dirPath)
         return 200
