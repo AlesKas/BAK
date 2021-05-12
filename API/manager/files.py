@@ -69,13 +69,9 @@ class FileGetHandlerDownload(GetRequest):
             currentUser = NtwUsers.get(NtwUsers.user_name == currentUserName).id
             toUser = kwargs["toUser"]
             toUser = NtwUsers.get(NtwUsers.user_name == toUser).id
-            if directory != "/":
-                strippedDir = directory.split("/")[1]
-                query = Share.select(Share.directory).where((Share.from_user == currentUser) & (Share.to_user == toUser) & (Share.file_name == strippedDir))
-            else:
-                query = Share.select(Share.directory).where((Share.from_user == currentUser) & (Share.to_user == toUser) & (Share.directory == directory))
+            query = Share.select(Share.directory).where((Share.from_user == currentUser) & (Share.to_user == toUser) & (Share.file_name == fileName))
             sharedDir = [f for f in query]
-            userWorkspace = DISK_PATH + currentUserName + sharedDir[0].directory + directory
+            userWorkspace = DISK_PATH + currentUserName + sharedDir[0].directory
         else:
             userWorkspace = DISK_PATH + currentUserName + directory
         response = make_response(send_from_directory(userWorkspace, fileName, as_attachment=True))
